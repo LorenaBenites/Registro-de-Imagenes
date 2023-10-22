@@ -22,6 +22,11 @@ public class Producto {
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
 	private String img;
+	@Lob
+	@Column(columnDefinition = "LONGBLOB")
+	private String itec;
+	@Column(length = 100)
+	private String nomitec;
 	@Column(length = 50)
 	private String nompro;
 	private double precio;

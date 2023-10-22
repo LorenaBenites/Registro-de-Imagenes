@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg">
+		<div class="container-fluid">
+			<!-- INICIO ENLACES -->
+			<div class="col-sm-2">
+				<a href="#"><img
+						src="https://www.miraflores.gob.pe/wp-content/themes/munimiraflores/web-imagenes/destacado-default.png"
+						alt="Logo" class="img-fluid" width="40%"></a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0" style="padding-left: 30px;">
+					<li class="nav-item" style="margin-right: 30px;"><a class="dropdown-item text-muted"
+							href="/verImagenes" target="_blank">Registro Producto</a></li>
+					<li class="nav-item" style="margin-right: 30px;"><a href="/verListado"
+							class="dropdown-item text-muted" target="_blank">ListadoProductos</a></li>
+				</ul>
+
+				<!-- INICIO BUSCADOR -->
+				<form class="d-flex" role="search" action="ServletUsuario?accion=CerrarSession" method="post">
+					<button class="btn btn-outline-danger" type="submit">Cerrar
+						Session</button>
+				</form>
+				<!-- FIN BUSCADOR -->
+			</div>
+		</div>
+	</nav>
+
+	<div class="col-12">
+
+
+		<h3 class="text-center">Listas de Productos de la Tiendita de Lorena</h3>
+		<hr>
+		<table class="table text-center">
+			<thead class="table-dark">
+				<tr>
+					<th scope="col">image</th>
+					<th scope="col">ITEC</th>
+					<th scope="col">Tipo</th>
+					<th scope="col">name</th>
+					<th scope="col">description</th>
+					<th scope="col">price</th>
+					<th scope="col">delete product</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${products}">
+					<td class="" scope="row">
+						<!-- Button trigger modal -->
+						<button type="button" class="btn " data-bs-toggle="modal"
+							th:attr="data-bs-target='#staticBackdrop'+*{product.idprod}">
+							<img alt="" th:src="*{'data:img/jpeg;base64,'+{product.img}}"
+								style="width: 100px;height: 100px;">
+						</button>
+
+						<!-- Modal -->
+						<div class="modal fade" th:id="*{'staticBackdrop'+{product.idprod}}" data-bs-backdrop="static"
+							data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" style="margin-top: 180px;  ">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="btn-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<img alt="" th:src="*{'data:img/jpeg;base64,'+{product.img}}"
+											style="width: 100%;height: 400px;">
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+					<td>
+						<a id="pdfLink"  th:href="'data:application/pdf;base64,' + ${product.itec}" target="blank">
+							<img alt="" src="https://cdn-icons-png.flaticon.com/256/337/337946.png"
+								style="width: 100px; height: 100px;">
+						</a>
+					</td>
+					<td>
+						[[*{product.nomitec}]]
+					</td>
+					<td>[[*{product.nompro}]]
+					</td>
+					<td>[[*{product.descrip}]] <!-- Button trigger modal -->
+					</td>
+					<td>[[*{product.precio}]]
+					</td>
+					<td><a th:href="@{/deleteProd/{id}(id=${product.idprod})}" class="btn btn-danger mt-4">delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
+ <script>
+        // Espera un momento y luego recarga la página o el enlace del PDF
+        window.onload = function() {
+            setTimeout(function() {
+                var pdfLink = document.getElementById('pdfLink');
+                if (pdfLink) {
+                    pdfLink.click(); // Abre el enlace del PDF automáticamente
+                }
+            }, 1000); // 1000 ms = 1 segundo, puedes ajustar el tiempo de espera según tus necesidades
+        }
+    </script>
+
+</body>
+
+</html>

@@ -3,12 +3,9 @@ package com.imagen.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.imagen.entity.Producto;
-
+import com.imagen.entity.Usuario;
 
 @Repository
-public interface ProductoRepository extends JpaRepository<Producto, Integer> {
-	
-	
-}
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
+}
